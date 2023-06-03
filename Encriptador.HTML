@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Encriptador</title>
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="style.CSS" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <img src="Imagenes/Vector.svg" alt="Logo de Alura" />
+      </div>
+    </header>
+    <main>
+      <section class="encriptador">
+        <textarea id="texto" placeholder="Ingrese el texto aquí"></textarea>
+        <div class="aviso">
+          <img src="Imagenes/Advertencia.svg" alt="Advertencia" />
+          <p class="advertencia">Solo letras minúsculas sin acentos</p>
+        </div>
+        <div class="botones">
+          <button onclick="encriptarTexto()" class="encriptar">
+            Encriptar
+          </button>
+          <button onclick="desencriptarTexto()" class="desencriptar">
+            Desencriptar
+          </button>
+        </div>
+      </section>
+      <section class="resultado">
+        <div id="sin-resultado">
+          <img src="Imagenes/Muñeco.svg" alt="Muñeco" id="muneco" />
+          <p class="titulo">Ningún mensaje fue encontrado</p>
+          <p class="detalle">
+            Ingresa el texto que desees encriptar o desencriptar.
+          </p>
+        </div>
+        <textarea id="outputText" class="oculto" readonly></textarea>
+        <button onclick="copiarTexto()" class="boton-copiar oculto">
+          Copiar
+        </button>
+      </section>
+      <script>
+        function encriptarTexto() {
+          var inputText = document.getElementById("texto").value;
+          var outputText = "";
+
+          for (var i = 0; i < inputText.length; i++) {
+            var currentChar = inputText.charAt(i);
+
+            switch (currentChar.toLowerCase()) {
+              case "a":
+                outputText += "ai";
+                break;
+              case "e":
+                outputText += "enter";
+                break;
+              case "i":
+                outputText += "imes";
+                break;
+              case "o":
+                outputText += "ober";
+                break;
+              case "u":
+                outputText += "ufat";
+                break;
+              default:
+                outputText += currentChar;
+            }
+          }
+
+          var sinResultado = document.getElementById("sin-resultado");
+          sinResultado.style.display = "none";
+
+          var outputElement = document.getElementById("outputText");
+          outputElement.textContent = outputText;
+
+          var botonCopiar = document.querySelector(".boton-copiar");
+          botonCopiar.classList.remove("oculto");
+
+          outputElement.classList.remove("oculto");
+        }
+
+        function desencriptarTexto() {
+          var inputText = document.getElementById("texto").value;
+          var outputText = "";
+
+          for (var i = 0; i < inputText.length; i++) {
+            var currentChar = inputText.charAt(i);
+
+            switch (currentChar.toLowerCase()) {
+              case "a":
+                if (inputText.substr(i, 2) === "ai") {
+                  outputText += "a";
+                  i++;
+                } else {
+                  outputText += currentChar;
+                }
+                break;
+              case "e":
+                if (inputText.substr(i, 5) === "enter") {
+                  outputText += "e";
+                  i += 4;
+                } else {
+                  outputText += currentChar;
+                }
+                break;
+              case "i":
+                if (inputText.substr(i, 4) === "imes") {
+                  outputText += "i";
+                  i += 3;
+                } else {
+                  outputText += currentChar;
+                }
+                break;
+              case "o":
+                if (inputText.substr(i, 4) === "ober") {
+                  outputText += "o";
+                  i += 3;
+                } else {
+                  outputText += currentChar;
+                }
+                break;
+              case "u":
+                if (inputText.substr(i, 4) === "ufat") {
+                  outputText += "u";
+                  i += 3;
+                } else {
+                  outputText += currentChar;
+                }
+                break;
+              default:
+                outputText += currentChar;
+            }
+          }
+
+          var sinResultado = document.getElementById("sin-resultado");
+          sinResultado.style.display = "none";
+
+          var outputElement = document.getElementById("outputText");
+          outputElement.textContent = outputText;
+
+          var botonCopiar = document.querySelector(".boton-copiar");
+          botonCopiar.classList.remove("oculto");
+
+          outputElement.classList.remove("oculto");
+        }
+
+        function copiarTexto() {
+          var outputText = document.getElementById("outputText").textContent;
+          navigator.clipboard.writeText(outputText).then(function () {});
+        }
+      </script>
+    </main>
+  </body>
+</html>
